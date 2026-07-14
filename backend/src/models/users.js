@@ -22,6 +22,22 @@ class Users {
         ]);
         return result.rows[0];
     }
+
+    static async credit_wallet_balance(clientOrPool, user_id, amount) {
+        const result = await clientOrPool.query(
+            `UPDATE users SET wallet_balance=wallet_balance+$1 WHERE id = $2 RETURNING wallet_balance;`,
+            [amount, user_id],
+        );
+        return result;
+    }
+
+    static async deduct_wallet_balance(clientOrPool, user_id, amount) {
+        const result = await clientOrPool.query(
+            `UPDATE users SET wallet_balance=wallet_balance-$1 WHERE id = $2 AND wallet_balance >= $1 RETURNING wallet_balance;`,
+            [amount, user_id],
+        );
+        return result;
+    }
 }
 
 module.exports = Users;
