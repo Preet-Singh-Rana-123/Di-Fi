@@ -14,5 +14,10 @@ transactionRouter.patch(
     authenticateToken,
     transactionController.update_wallet_transaction,
 );
+transactionRouter.patch(
+    "/distribute-yeild",
+    authenticateToken,
+    transactionController.yeild_repayment_distribution,
+);
 
 module.exports = transactionRouter;

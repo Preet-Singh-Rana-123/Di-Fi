@@ -1,9 +1,23 @@
 const Users = require("../models/users");
-const wallet_transaction = require("../models/wallet_transactions");
 const {
     transfer_funds,
     update_wallet_balance,
 } = require("../utils/funds_transactions");
+const { distributeRepaymentYield } = require("../utils/loans_transaction");
+
+exports.yeild_repayment_distribution = async (req, res, next) => {
+    try {
+        const { bank_id, total_installment } = req.body;
+        const result = await distributeRepaymentYield(
+            bank_id,
+            total_installment,
+        );
+        res.status(200).json({ result });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Internal error occurred" });
+    }
+};
 
 exports.fund_transfer_transaction = async (req, res, next) => {
     try {
