@@ -17,12 +17,12 @@ class Bank_Contributions {
         return result.rows[0];
     }
 
-    static async get_amount_contibuted(bank_id, user_id) {
-        const result = pool.query(
-            `SELECT amount_contributed FROM bank_contributions WHERE bank_id = $1 AND user_id = $2;`,
+    static async get_amount_contibuted(clientOrPool, bank_id, user_id) {
+        const result = clientOrPool.query(
+            `SELECT user_id ,amount_contributed FROM bank_contributions WHERE bank_id = $1 AND user_id = $2;`,
             [bank_id, user_id],
         );
-        return result.rows[0];
+        return result;
     }
 }
 

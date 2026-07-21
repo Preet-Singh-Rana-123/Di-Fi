@@ -29,12 +29,12 @@ class Bank_Pools {
         return result.rows[0];
     }
 
-    static async get_bank_pool_detail(bank_id) {
-        const result = await pool.query(
+    static async get_bank_pool_detail(clientOrPool, bank_id) {
+        const result = await clientOrPool.query(
             `SELECT owner_id, bank_name, interest_rate, owner_commission_pct, total_liquidity FROM bank_pools WHERE id = $1;`,
             [bank_id],
         );
-        return result.rows[0];
+        return result;
     }
 }
 
