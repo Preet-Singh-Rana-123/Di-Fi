@@ -5,6 +5,7 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
+        "test:acid": "node ./src/tests/test_acid.js",
         "migrate": "node ./src/db/migrate.js",
         "start": "nodemon ./src/app.js"
     },
